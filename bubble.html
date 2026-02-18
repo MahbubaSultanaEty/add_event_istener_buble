@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bubble</title>
+    <style>
+        body{
+            border: 2px solid purple;
+           margin: 2px;
+        }
+        section{
+            border: 2px solid green;
+            margin: 2px;
+        }
+        ol{
+            border: 2px solid  lightcoral;
+          margin: 2px;
+        }
+        li{
+            border: 2px solid blue;
+           margin: 2px;
+        }
+    </style>
+</head>
+<body id="body">
+    <h1>Explore event bubble</h1>
+    <section id="list-container">
+        <h3>List of things</h3>
+        <ol id="item-list">
+            <li id="item-1">Lorem, ipsum.</li>
+            <li id="item-2">Eum, quae!</li>
+            <li id="item-3">Doloremque, consequatur!</li>
+            <li id="item-4">Illum, laboriosam?</li>
+            <li id="item-5">Aperiam, necessitatibus?</li>
+            <li id="item-6">Deleniti, eaque.</li>
+        </ol>
+    </section>
+
+    <!-- Event Bubbling মানে হলো —
+যখন কোনো child element-এ event ঘটে, তখন সেটা parent → grandparent → document পর্যন্ত উপরে উঠতে থাকে। -->
+
+    <!-- Event Propagation কী?
+
+    Event Propagation হলো event কিভাবে travel করে সেটা।
+    এর ৩টা phase আছে:
+
+        1. Capturing phase (উপরে থেকে নিচে)
+
+        2. Target phase (যেই element-এ event হয়েছে)
+
+        3. Bubbling phase (নিচ থেকে উপরে) -->
+
+    <!-- stopPropagation() কী?
+     event আর parent elements-এ যাবে না। -->
+
+     <!-- stopImmediatePropagation() হলো
+stopPropagation()-এর stronger version। একই element-এর বাকি event listeners-গুলোকেও বন্ধ করে দেয়-->
+    <script>
+        // list item 2 click handler
+        document.getElementById("item-2").addEventListener('click', function (event){
+            console.log("item 2 clicked");
+            event.stopPropagation();
+        })
+        // list item 2 click handler
+        document.getElementById("item-2").addEventListener('click', function (event){
+            console.log("item 2 second clicked");
+            event.stopImmediatePropagation();
+        })
+        // list item 2 click handler
+        document.getElementById("item-2").addEventListener('click', function (event){
+            console.log("item 2 third clicked");
+        
+        })
+
+        // ol   click handler
+        document.getElementById("item-list").addEventListener('click', function (){
+            console.log("item-list clicked");
+        })
+
+        // section click handler
+        document.getElementById("list-container").addEventListener('click', function (){
+            console.log("list-container section clicked");
+        })
+
+        // body click handler
+        document.getElementById("body").addEventListener('click', function (){
+            console.log("body clicked");
+        })
+
+
+    </script>
+</body>
+</html>
